@@ -1,5 +1,3 @@
 module "vpc" {
-  source = "github.com/vamsi113/tf-module-vpc.git?ref=${var.ver}"
+  source = "./vendor/modules/vpc"
 }
-
-variable "ver" {}
