@@ -1,6 +1,9 @@
 
 dev:
 	rm -rf .terraform*
+	git pull
+	terrafile -f env-dev/Terrafile
+
 
 #prod:
 #    rm -rf .terraform*
