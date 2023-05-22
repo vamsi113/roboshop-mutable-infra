@@ -1,4 +1,6 @@
 
+dev:
+	rm -rf .terraform*
 
 #prod:
 #    rm -rf .terraform*
