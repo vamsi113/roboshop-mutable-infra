@@ -1,7 +1,7 @@
 dev:
     rm -rf .terraform*
     git pull
-    terrfile -f env-dev/Terrafile
+    terrafile -f env-dev/Terrafile
     #terraform init
     #terraform apply --auto-approve
 
@@ -9,7 +9,7 @@ dev:
 prod:
     rm -rf .terraform*
     git pull
-    terrfile -f env-prod/Terrafile
+    terrafile -f env-prod/Terrafile
     #terraform init
     #terraform apply --auto-approve
 
@@ -17,7 +17,7 @@ prod:
 dev-destroy:
     rm -rf .terraform*
     git pull
-    terrfile -f env-dev/Terrafile
+    terrafile -f env-dev/Terrafile
     #terraform init
     #terraform destroy --auto-approve
 
@@ -25,6 +25,6 @@ dev-destroy:
 prod-destroy:
     rm -rf .terraform*
     git pull
-    terrfile -f env-prod/Terrafile
+    terrafile -f env-prod/Terrafile
     #terraform init
     #terraform destroy --auto-approve
