@@ -20,7 +20,8 @@ vpc = {
   }
 }
 management_vpc = {
-  vpc_id = "vpc-0035013d8f7f13f35"
+  vpc_id      = "vpc-0035013d8f7f13f35"
+  route_table = "rtb-0f3763bf2c221c7b2"
 }
 
 env = "dev"
