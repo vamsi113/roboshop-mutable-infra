@@ -1,4 +1,3 @@
-
 dev:
 	rm -rf .terraform*
 	git pull
