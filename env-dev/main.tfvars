@@ -20,7 +20,7 @@ vpc = {
   }
 }
 management_vpc = {
-  vpc_id = vpc-0035013d8f7f13f35
+  vpc_id = "vpc-0035013d8f7f13f35"
 }
 
 env = "dev"
