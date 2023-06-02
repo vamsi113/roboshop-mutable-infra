@@ -19,5 +19,8 @@ vpc = {
     subnet_availability_zones = ["us-east-1a", "us-east-1b"]
   }
 }
+management_vpc = {
+  vpc_id = vpc-0035013d8f7f13f35
+}
 
 env = "dev"
