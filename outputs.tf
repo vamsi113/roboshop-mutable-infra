@@ -2,9 +2,9 @@ output "vpc" {
   value = module.vpc.vpc
 }
 
-#output "subnets" {
-#  value = module.vpc.subnets
-#}
+output "subnets" {
+  value = module.vpc.subnets
+}
 
 
 output "route_tables" {
