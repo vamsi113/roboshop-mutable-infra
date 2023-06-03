@@ -7,6 +7,6 @@ output "subnets" {
 }
 
 
-output "route_tables" {
-  value = module.vpc.route_tables
-}
+#output "route_tables" {
+#  value = module.vpc.route_tables
+#}
