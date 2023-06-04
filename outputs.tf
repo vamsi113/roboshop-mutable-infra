@@ -1,5 +1,5 @@
 output "vpc" {
-  value = module.vpc.vpc
+  value = module.vpc
 }
 
 #output "subnets" {
@@ -11,6 +11,3 @@ output "vpc" {
 #  value = module.vpc.route_tables
 #}
 
-output "subnets" {
-  value = module.vpc
-}
