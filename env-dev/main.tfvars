@@ -18,6 +18,7 @@ vpc = {
         name       = "app"
         attach_to  = "ngw"
       }
+    }
     public_subnets ={
       public  = {
         cidr_block = ["10.0.255.0/24", "10.0.254.0/24"]
@@ -28,6 +29,7 @@ vpc = {
     subnet_availability_zones = ["us-east-1a", "us-east-1b"]
   }
 }
+
 management_vpc = {
   vpc_id      = "vpc-0035013d8f7f13f35"
   route_table = "rtb-0f3763bf2c221c7b2"
