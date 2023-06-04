@@ -10,3 +10,7 @@ output "vpc" {
 #output "route_tables" {
 #  value = module.vpc.route_tables
 #}
+
+output "subnets" {
+  value = module.vpc
+}
