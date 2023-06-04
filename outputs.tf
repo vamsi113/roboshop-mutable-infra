@@ -11,6 +11,6 @@ output "vpc" {
 #  value = module.vpc.route_tables
 #}
 
-output "env-subnets" {
+output "subnets" {
   value = module.vpc
 }
