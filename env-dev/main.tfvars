@@ -28,6 +28,35 @@ vpc = {
     }
     subnet_availability_zones = ["us-east-1a", "us-east-1b"]
   }
+  vpc2 = {
+    cidr_block = "10.1.0.0/16"
+    additional_cidr_block = []
+    private_subnets = {
+      frontend = {
+        cidr_block = ["10.1.0.0/24", "10.1.1.0/24"]
+        name       = "frontend"
+        attach_to  = "ngw"
+      }
+      database = {
+        cidr_block = ["10.1.2.0/24", "10.1.3.0/24"]
+        name       = "database"
+        attach_to  = "ngw"
+      }
+      app = {
+        cidr_block = ["10.1.4.0/24", "10.1.5.0/24"]
+        name       = "app"
+        attach_to  = "ngw"
+      }
+    }
+    public_subnets = {
+      public  = {
+        cidr_block = ["10.1.255.0/24", "10.1.254.0/24"]
+        name       = "public"
+        attach_to  = "igw"
+      }
+    }
+    subnet_availability_zones = ["us-east-1a", "us-east-1b"]
+  }
 }
 
 management_vpc = {
