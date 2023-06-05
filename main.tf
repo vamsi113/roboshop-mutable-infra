@@ -14,6 +14,3 @@ module "vpc" {
 #  env      = var.env
 #}
 
-output "app_private_subnets" {
-  value = local.private_subnets[*].id
-}
