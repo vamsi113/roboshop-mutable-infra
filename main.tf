@@ -6,3 +6,10 @@ module "vpc" {
 }
 
 ## here module will take care how to iterate and this way main code i am keeping minimal and will enhance module with other things
+
+
+#module "docdb" {
+#  source   = "./vendor/modules/docdb"
+#  docdb      = var.docdb
+#  env      = var.env
+#}

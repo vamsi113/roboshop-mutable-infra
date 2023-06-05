@@ -1,3 +1,7 @@
 vpc:
     source: "https://github.com/vamsi113/tf-module-vpc.git"
     version: "main"
+
+docdb:
+    source: "https://github.com/vamsi113/tf-module-docdb.git"
+    version: "main"
