@@ -1,3 +1,4 @@
+env = "dev"
 vpc = {
   vpc1 = {
     cidr_block = "10.0.0.0/16"
@@ -28,35 +29,35 @@ vpc = {
     }
     subnet_availability_zones = ["us-east-1a", "us-east-1b"]
   }
-  vpc2 = {
-    cidr_block = "10.1.0.0/16"
-    additional_cidr_block = []
-    private_subnets = {
-      frontend = {
-        cidr_block = ["10.1.0.0/24", "10.1.1.0/24"]
-        name       = "frontend"
-        attach_to  = "ngw"
-      }
-      database = {
-        cidr_block = ["10.1.2.0/24", "10.1.3.0/24"]
-        name       = "database"
-        attach_to  = "ngw"
-      }
-      app = {
-        cidr_block = ["10.1.4.0/24", "10.1.5.0/24"]
-        name       = "app"
-        attach_to  = "ngw"
-      }
-    }
-    public_subnets = {
-      public  = {
-        cidr_block = ["10.1.255.0/24", "10.1.254.0/24"]
-        name       = "public"
-        attach_to  = "igw"
-      }
-    }
-    subnet_availability_zones = ["us-east-1a", "us-east-1b"]
-  }
+#  vpc2 = {
+#    cidr_block = "10.1.0.0/16"
+#    additional_cidr_block = []
+#    private_subnets = {
+#      frontend = {
+#        cidr_block = ["10.1.0.0/24", "10.1.1.0/24"]
+#        name       = "frontend"
+#        attach_to  = "ngw"
+#      }
+#      database = {
+#        cidr_block = ["10.1.2.0/24", "10.1.3.0/24"]
+#        name       = "database"
+#        attach_to  = "ngw"
+#      }
+#      app = {
+#        cidr_block = ["10.1.4.0/24", "10.1.5.0/24"]
+#        name       = "app"
+#        attach_to  = "ngw"
+#      }
+#    }
+#    public_subnets = {
+#      public  = {
+#        cidr_block = ["10.1.255.0/24", "10.1.254.0/24"]
+#        name       = "public"
+#        attach_to  = "igw"
+#      }
+#    }
+#    subnet_availability_zones = ["us-east-1a", "us-east-1b"]
+#  }
 }
 
 management_vpc = {
@@ -70,4 +71,12 @@ docdb = {
     engine = "docdb"
   }
 }
-env = "dev"
+
+rds = {
+  allocated_storage    = 10
+  engine               = "aurora-mysql"
+  engine_version       = "5.7.mysql_aurora.2.03.2"
+  instance_class       = "db.t3.micro"
+  parameter_group_name = "default.mysql5.7"
+  skip_final_snapshot  = true
+}

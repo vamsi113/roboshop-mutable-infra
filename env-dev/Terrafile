@@ -5,3 +5,7 @@ vpc:
 docdb:
     source: "https://github.com/vamsi113/tf-module-docdb.git"
     version: "main"
+
+rds:
+    source: "https://github.com/vamsi113/tf-module-rds.git"
+    version: "main"
