@@ -19,7 +19,7 @@ vpc = {
         attach_to  = "ngw"
       }
     }
-    public_subnets ={
+    public_subnets = {
       public  = {
         cidr_block = ["10.0.255.0/24", "10.0.254.0/24"]
         name       = "public"

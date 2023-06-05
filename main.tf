@@ -13,3 +13,7 @@ module "vpc" {
 #  docdb      = var.docdb
 #  env      = var.env
 #}
+
+output "private_subnets" {
+  value = { for k,v in module.vpc.private_subnets : k=> v.subnets }
+}
