@@ -5,6 +5,9 @@ locals {
   public_subnets = lookup({for k, v in module.vpc.private_subnets : "subnets" => v.subnets}, "subnets", null)
 }
 
-output "app_private_subnets" {
-  value = local.app_private_subnets[*].id
+#output "app_private_subnets" {
+#  value = local.app_private_subnets[*].id
+#}
+output "public_subnets" {
+  value = local.public_subnets
 }
