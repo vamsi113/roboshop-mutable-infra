@@ -1,4 +1,4 @@
-#
+
 ##output "subnets" {
 #  value = module.vpc.subnets
 #}
@@ -8,3 +8,8 @@
 #  value = module.vpc.route_tables
 #}
 
+##updated modules
+
+output "vpc" {
+  value = module.vpc
+}
