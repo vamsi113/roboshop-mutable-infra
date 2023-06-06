@@ -17,3 +17,7 @@ elasticache:
 rabbitmq:
     source: "https://github.com/vamsi113/tf-module-rabbitmq.git"
     version: "main"
+
+app-setup:
+    source: "https://github.com/vamsi113/tf-module-mutable-app-setup.git"
+    version: "main"
