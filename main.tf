@@ -43,6 +43,6 @@ module "vpc" {
 #  subnets  = local.database_private_subnets[*].id
 #}
 
-output "private_sid" {
+output "app_subnets" {
   value = lookup(module.vpc, "private_subnets",null)
 }
