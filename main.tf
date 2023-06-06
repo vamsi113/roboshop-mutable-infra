@@ -91,7 +91,7 @@ module "app" {
   env= var.env
   subnets = flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
   instance_type = each.value.instance_type
-  for_each =  var.app
+  for_each =  var.apps
   name= each.key
   max_size = each.value.max_size
   min_size = each.value.min_size
