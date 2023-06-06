@@ -9,3 +9,7 @@ docdb:
 rds:
     source: "https://github.com/vamsi113/tf-module-rds.git"
     version: "main"
+
+elasticachae:
+    source: "https://github.com/vamsi113/tf-module-rds.git"
+    version: "main"
