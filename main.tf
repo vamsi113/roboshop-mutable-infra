@@ -73,5 +73,5 @@ module "elasticache" {
   num_cache_nodes      = each.value.num_cache_nodes
   #parameter_group_name = each.value.parameter_group_name
   engine_version       = each.value.engine_version
-  port                 = each.value.port
+  #port                 = each.value.port
 }
