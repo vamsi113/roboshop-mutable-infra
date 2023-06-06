@@ -44,5 +44,5 @@ module "vpc" {
 #}
 
 output "app_subnets" {
-  value = lookup(lookup(module.vpc, "private_subnets",null),"app",null)
+  value = [for i,j in module.vpc:j.private_subnets["app"]["subnets"]["*"].id]
 }
