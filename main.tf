@@ -41,17 +41,23 @@ module "docdb" {
   engine   = each.value.engine
   name     = each.key
   env      = var.env
-  subnets  =  flatten([for i,j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  subnets  = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
 }
 
 #output "app_subnets" {
 #  value = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
 #}
-#module "rds" {
-#  for_each = var.rds
-#  source   = "./vendor/modules/rds"
-#
-#  env      = var.env
-#  subnets  = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
-#}
-#
+module "rds" {
+  for_each             = var.rds
+  name                 = each.key
+  source               = "./vendor/modules/rds"
+  allocated_storage    = each.value.allocated_storage
+  engine               = each.value.engine
+  engine_version       = each.value.engine_version
+  instance_class       = each.value.instance_class
+  parameter_group_name = each.value.parameter_group_name
+  skip_final_snapshot  = each.value.skip_final_snapshot
+  env                  = var.env
+  subnets              = [for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id]
+}
+
