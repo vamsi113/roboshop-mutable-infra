@@ -103,7 +103,7 @@ rabbitmq ={
 apps = {
   cart ={
     instance_type = "t3.micro"
-    max_size           =
+    max_size           = 1
     min_size           = 1
   }
 }
