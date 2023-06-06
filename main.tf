@@ -44,5 +44,5 @@ module "vpc" {
 #}
 
 output "private_sid" {
-  value = module.vpc
+  value = lookup(module.vpc, "private_subnets",null)
 }
