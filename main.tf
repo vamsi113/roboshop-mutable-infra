@@ -51,6 +51,7 @@ module "rds" {
   for_each             = var.rds
   name                 = each.key
   source               = "./vendor/modules/rds"
+  subnets              = [for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id]
   allocated_storage    = each.value.allocated_storage
   engine               = each.value.engine
   engine_version       = each.value.engine_version
@@ -58,6 +59,5 @@ module "rds" {
   parameter_group_name = each.value.parameter_group_name
   skip_final_snapshot  = each.value.skip_final_snapshot
   env                  = var.env
-  subnets              = [for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id]
 }
 

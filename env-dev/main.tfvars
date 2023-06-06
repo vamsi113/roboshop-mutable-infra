@@ -73,10 +73,13 @@ docdb = {
 }
 
 rds = {
-  allocated_storage    = 10
-  engine               = "aurora-mysql"
-  engine_version       = "5.7.mysql_aurora.2.03.2"
-  instance_class       = "db.t3.micro"
-  parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = true
+  db1 = {
+    allocated_storage    = 10
+    engine               = "aurora-mysql"
+    engine_version       = "5.7.mysql_aurora.2.03.2"
+    instance_class       = "db.t3.micro"
+    parameter_group_name = "default.mysql5.7"
+    skip_final_snapshot  = true
+  }
+
 }
