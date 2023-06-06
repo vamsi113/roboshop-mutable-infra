@@ -87,7 +87,7 @@ module "rabbitmq" {
 }
 
 module "app" {
-  source = "./vendor/modules/mutable/app/setup"
+  source = "./vendor/modules/app-setup"
   env= var.env
   subnets = flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
   instance_type = each.value.instance_type
