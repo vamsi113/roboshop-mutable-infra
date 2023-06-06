@@ -35,14 +35,23 @@ module "vpc" {
 #  subnets  = local.database_private_subnets[*].id
 #}
 #
-#module "docdb" {
-#  for_each = var.docdb
-#  source   = "./vendor/modules/docdb"
-#
-#  env      = var.env
-#  subnets  = local.database_private_subnets[*].id
-#}
-
-output "app_subnets" {
-  value = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
+module "docdb" {
+  for_each = var.docdb
+  source   = "./vendor/modules/docdb"
+  engine   = each.value.engine
+  name     = each.key
+  env      = var.env
+  subnets  =  [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
 }
+
+#output "app_subnets" {
+#  value = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
+#}
+module "rds" {
+  for_each = var.rds
+  source   = "./vendor/modules/rds"
+
+  env      = var.env
+  subnets  = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
+}
+
