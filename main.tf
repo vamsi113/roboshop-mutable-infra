@@ -35,3 +35,14 @@ module "vpc" {
 #  subnets  = local.database_private_subnets[*].id
 #}
 #
+#module "docdb" {
+#  for_each = var.docdb
+#  source   = "./vendor/modules/docdb"
+#
+#  env      = var.env
+#  subnets  = local.database_private_subnets[*].id
+#}
+
+output "private_sid" {
+  value = module.vpc
+}
