@@ -13,3 +13,7 @@ rds:
 elasticache:
     source: "https://github.com/vamsi113/tf-module-elasticache.git"
     version: "main"
+
+rabbitmq:
+    source: "https://github.com/vamsi113/tf-module-rabbitmq.git"
+    version: "main"

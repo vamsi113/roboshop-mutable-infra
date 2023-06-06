@@ -75,3 +75,13 @@ module "elasticache" {
   engine_version       = each.value.engine_version
   #port                 = each.value.port
 }
+
+module "rabbitmq" {
+  source = "./vendor/modules/rabbitmq"
+  for_each = var.rabbitmq
+  env= var.env
+  subnets = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  name=each.key
+  instance_type = each.value.instance_type
+
+}

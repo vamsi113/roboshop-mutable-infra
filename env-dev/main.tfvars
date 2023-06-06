@@ -93,3 +93,9 @@ elasticache = {
     #port                 = 6379
   }
 }
+
+rabbitmq ={
+  mq1 ={
+    instance_type ="t3.micro"
+  }
+}
