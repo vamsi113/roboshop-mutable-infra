@@ -95,6 +95,6 @@ module "app" {
   name= each.key
   max_size = each.value.max_size
   min_size = each.value.min_size
-  vpc_id   = element([for i,j in module.vpc: j.vpc_id],0)
+  vpc_id   = element([for i,j in module.vpc: j.vpc_id], 0)
   BASTION_NODE = var.BASTION_NODE
 }
