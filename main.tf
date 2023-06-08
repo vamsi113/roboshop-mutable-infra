@@ -124,18 +124,18 @@ locals {
 
 
 
-#module "alb" {
-#  for_each        = local.merged_alb
-#  source          = "./vendor/modules/alb"
-#  env             = var.env
-#  public_subnets  = flatten([for i, j in module.vpc : j.public_subnets["public"]["subnets"][*].id])
-#  private_subnets = flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
-#  name            = each.key
-#  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
-#  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
-#  internal        = each.value.internal
-#
-#}
+module "alb" {
+  for_each        = local.merged_alb
+  source          = "./vendor/modules/alb"
+  env             = var.env
+  public_subnets  = flatten([for i, j in module.vpc : j.public_subnets["public"]["subnets"][*].id])
+  private_subnets = flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
+  name            = each.key
+  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
+  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
+  internal        = each.value.internal
+
+}
 
 output "merr" {
   value = local.merged_alb
