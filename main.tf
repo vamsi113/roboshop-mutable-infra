@@ -88,36 +88,37 @@ module "rabbitmq" {
 }
 
 module "app" {
-  source          = "./vendor/modules/app-setup"
-  env             = var.env
-  subnets         = each.key == "frontend" ? flatten([
+  source  = "./vendor/modules/app-setup"
+  env     = var.env
+  subnets = each.key == "frontend" ? flatten([
     for i, j in module.vpc :j.private_subnets["frontend"]["subnets"][*].id
   ]) : flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
-  instance_type   = each.value.instance_type
-  for_each        = var.apps
-  name            = each.key
-  max_size        = each.value.max_size
-  min_size        = each.value.min_size
-  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
-  BASTION_NODE    = var.BASTION_NODE
-  app_port_no     = each.value.app_port_no
-  PROMETHEUS_NODE = var.PROMETHEUS_NODE
-  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
-  alb             = module.alb
-  private_zone_id  = var.private_zone_id
+  instance_type       = each.value.instance_type
+  for_each            = var.apps
+  name                = each.key
+  max_size            = each.value.max_size
+  min_size            = each.value.min_size
+  lb_listner_priority = each.value.lb_listner_priority
+  type                = each.value.type
+  vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
+  BASTION_NODE        = var.BASTION_NODE
+  app_port_no         = each.value.app_port_no
+  PROMETHEUS_NODE     = var.PROMETHEUS_NODE
+  vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
+  alb                 = module.alb
+  private_zone_id     = var.private_zone_id
 }
 
 
-
 module "alb" {
-  for_each        = local.merged_alb
-  source          = "./vendor/modules/alb"
-  env             = var.env
-  subnets         = each.value.subnets
-  name            = each.key
-  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
-  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
-  internal        = each.value.internal
+  for_each = local.merged_alb
+  source   = "./vendor/modules/alb"
+  env      = var.env
+  subnets  = each.value.subnets
+  name     = each.key
+  vpc_id   = element([for i, j in module.vpc : j.vpc_id], 0)
+  vpc_cidr = element([for i, j in module.vpc : j.vpc_cidr], 0)
+  internal = each.value.internal
 
 }
 
