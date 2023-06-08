@@ -105,30 +105,13 @@ module "app" {
   vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
 }
 
-locals {
-  alb ={
-    public = {
-      vpc_cidr = "0.0.0.0/0"
-    }
-    private ={
-      vpc_cidr = element([for i, j in module.vpc : j.vpc_cidr], 0)
-    }
-  }
-  merged_alb = tomap({
-    for i in keys(var.alb): i=> {
-    internal = var.alb[i].internal
-    vpc_cidr = local.alb[i].vpc_cidr
-  }
-  })
-}
-
 
 
 module "alb" {
   for_each        = local.merged_alb
   source          = "./vendor/modules/alb"
   env             = var.env
-
+  subnets         = each.value.subnets
   name            = each.key
   vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
   vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
@@ -136,6 +119,4 @@ module "alb" {
 
 }
 
-output "merr" {
-  value = local.merged_alb
-}
+

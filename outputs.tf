@@ -13,3 +13,7 @@
 #output "vpc" {
 #  value = module.vpc
 #}
+
+#output "merr" {
+#  value = local.merged_alb
+##}
