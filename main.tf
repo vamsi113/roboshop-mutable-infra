@@ -49,70 +49,94 @@ module "docdb" {
 #  value = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
 #}
 module "rds" {
-  for_each             = var.rds
-  name                 = each.key
-  source               = "./vendor/modules/rds"
-  subnets              = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
-  allocated_storage    = each.value.allocated_storage
-  engine               = each.value.engine
-  engine_version       = each.value.engine_version
-  instance_class       = each.value.instance_class
+  for_each          = var.rds
+  name              = each.key
+  source            = "./vendor/modules/rds"
+  subnets           = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  allocated_storage = each.value.allocated_storage
+  engine            = each.value.engine
+  engine_version    = each.value.engine_version
+  instance_class    = each.value.instance_class
 
-  skip_final_snapshot  = each.value.skip_final_snapshot
-  env                  = var.env
+  skip_final_snapshot = each.value.skip_final_snapshot
+  env                 = var.env
 }
 
 module "elasticache" {
-  for_each             = var.elasticache
-  name                 = each.key
-  env                  = var.env
-  subnets              = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
-  source               = "./vendor/modules/elasticache"
-  cluster_id           = each.value.cluster_id
-  engine               = each.value.engine
-  node_type            = each.value.node_type
-  num_cache_nodes      = each.value.num_cache_nodes
+  for_each        = var.elasticache
+  name            = each.key
+  env             = var.env
+  subnets         = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  source          = "./vendor/modules/elasticache"
+  cluster_id      = each.value.cluster_id
+  engine          = each.value.engine
+  node_type       = each.value.node_type
+  num_cache_nodes = each.value.num_cache_nodes
   #parameter_group_name = each.value.parameter_group_name
-  engine_version       = each.value.engine_version
+  engine_version  = each.value.engine_version
   #port                 = each.value.port
 }
 
 module "rabbitmq" {
-  source = "./vendor/modules/rabbitmq"
-  for_each = var.rabbitmq
-  env= var.env
-  subnets = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
-  name=each.key
+  source        = "./vendor/modules/rabbitmq"
+  for_each      = var.rabbitmq
+  env           = var.env
+  subnets       = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  name          = each.key
   instance_type = each.value.instance_type
 
 }
 
 module "app" {
-  source = "./vendor/modules/app-setup"
-  env= var.env
-  subnets = each.key == "frontend" ? flatten([for i, j in module.vpc : j.private_subnets["frontend"]["subnets"][*].id]) :flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
-  instance_type = each.value.instance_type
-  for_each =  var.apps
-  name= each.key
-  max_size = each.value.max_size
-  min_size = each.value.min_size
-  vpc_id   = element([for i,j in module.vpc : j.vpc_id], 0)
-  BASTION_NODE = var.BASTION_NODE
-  app_port_no   = each.value.app_port_no
-  PROMETHEUS_NODE =var.PROMETHEUS_NODE
-  vpc_cidr   = element([for i,j in module.vpc : j.vpc_cidr], 0)
+  source          = "./vendor/modules/app-setup"
+  env             = var.env
+  subnets         = each.key == "frontend" ? flatten([
+    for i, j in module.vpc :j.private_subnets["frontend"]["subnets"][*].id
+  ]) : flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
+  instance_type   = each.value.instance_type
+  for_each        = var.apps
+  name            = each.key
+  max_size        = each.value.max_size
+  min_size        = each.value.min_size
+  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
+  BASTION_NODE    = var.BASTION_NODE
+  app_port_no     = each.value.app_port_no
+  PROMETHEUS_NODE = var.PROMETHEUS_NODE
+  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
 }
 
-module "alb" {
-  for_each = var.alb
-  source = "./vendor/modules/alb"
-  env  = var.env
-  public_subnets = flatten([for i, j in module.vpc : j.public_subnets["public"]["subnets"][*].id])
-  private_subnets = flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
-  name = each.key
-  vpc_id = element([for i,j in module.vpc : j.vpc_id], 0)
-  vpc_cidr = element([for i,j in module.vpc : j.vpc_cidr], 0)
-
-
+locals {
+  alb ={
+    public = {
+      vpc_cidr = "0.0.0.0/0"
+    }
+    private ={
+      vpc_cidr = element([for i, j in module.vpc : j.vpc_cidr], 0)
+    }
+  }
+  merged_alb = tomap({
+    for i in keys(var.alb): i=> {
+    internal = var.alb[i].internal
+    vpc_cidr = local.alb[i].vpc_cidr
+  }
+  })
 }
 
+
+
+#module "alb" {
+#  for_each        = local.merged_alb
+#  source          = "./vendor/modules/alb"
+#  env             = var.env
+#  public_subnets  = flatten([for i, j in module.vpc : j.public_subnets["public"]["subnets"][*].id])
+#  private_subnets = flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
+#  name            = each.key
+#  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
+#  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
+#  internal        = each.value.internal
+#
+#}
+
+output "merr" {
+  value = local.merged_alb
+}
