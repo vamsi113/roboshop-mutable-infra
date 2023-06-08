@@ -105,8 +105,10 @@ apps = {
     instance_type = "t3.micro"
     max_size           = 1
     min_size           = 1
+    app_port_no        = 8080
   }
 }
 
 BASTION_NODE = "172.31.5.124/32"
 private_zone_id = "Z01312793IKNYB43EUNLS"
+PROMETHEUS_NODE = "172.31.2.187/32"
