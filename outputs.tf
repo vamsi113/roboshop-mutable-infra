@@ -17,3 +17,7 @@
 #output "merr" {
 #  value = local.merged_alb
 ##}
+
+output "alb" {
+  value = module.alb
+}
