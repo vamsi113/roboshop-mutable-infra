@@ -21,3 +21,7 @@ rabbitmq:
 app-setup:
     source: "https://github.com/vamsi113/tf-module-mutable-app-setup.git"
     version: "main"
+
+alb:
+    source: "https://github.com/vamsi113/tf--module--alb.git"
+    version: "main"
