@@ -109,6 +109,7 @@ module "app" {
   private_zone_id     = var.private_zone_id
   public_zone_id     = var.public_zone_id
   public_dns_name = try(each.value.public_dns_name,null)
+  ACM_ARN =  var.ACM_ARN
 }
 
 
@@ -121,7 +122,7 @@ module "alb" {
   vpc_id   = element([for i, j in module.vpc : j.vpc_id], 0)
   vpc_cidr = element([for i, j in module.vpc : j.vpc_cidr], 0)
   internal = each.value.internal
-  ACM_ARN =  var.ACM_ARN
+
 }
 
 
