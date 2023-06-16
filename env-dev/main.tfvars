@@ -167,3 +167,5 @@ alb ={
     internal = true
   }
 }
+
+ACM_ARN = "arn:aws:acm:us-east-1:466469048414:certificate/3699781e-4a7e-4979-8409-890d3de18893"
