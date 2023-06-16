@@ -168,6 +168,6 @@ alb ={
   }
 }
 
-ACM_ARN = "arn:aws:acm:us-east-1:466469048414:certificate/5ed38c23-c47c-4b11-95c8-efe21c60a3eb"
+ACM_ARN = "arn:aws:acm:us-east-1:466469048414:certificate/67c36723-e196-4339-b47e-a1a049f84233"
 
 
