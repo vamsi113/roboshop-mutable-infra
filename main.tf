@@ -62,7 +62,6 @@ module "rds" {
   engine            = each.value.engine
   engine_version    = each.value.engine_version
   instance_class    = each.value.instance_class
-
   skip_final_snapshot = each.value.skip_final_snapshot
   env                 = var.env
 }
@@ -80,6 +79,8 @@ module "elasticache" {
   #parameter_group_name = each.value.parameter_group_name
   engine_version  = each.value.engine_version
   #port                 = each.value.port
+  vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
+  vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
 }
 
 module "rabbitmq" {
