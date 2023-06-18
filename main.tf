@@ -64,6 +64,9 @@ module "rds" {
   instance_class    = each.value.instance_class
   skip_final_snapshot = each.value.skip_final_snapshot
   env                 = var.env
+  vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
+  BASTION_NODE        = var.BASTION_NODE
+  vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
 }
 
 module "elasticache" {
