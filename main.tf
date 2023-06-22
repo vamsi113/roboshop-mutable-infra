@@ -37,13 +37,13 @@ module "vpc" {
 #}
 #
 module "docdb" {
-  for_each = var.docdb
-  source   = "./vendor/modules/docdb"
-  engine   = each.value.engine
-  name     = each.key
-  env      = var.env
-  subnets  = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
-  nodes    = each.value.nodes
+  for_each            = var.docdb
+  source              = "./vendor/modules/docdb"
+  engine              = each.value.engine
+  name                = each.key
+  env                 = var.env
+  subnets             = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  nodes               = each.value.nodes
   skip_final_snapshot = each.value.skip_final_snapshot
   vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
   BASTION_NODE        = var.BASTION_NODE
@@ -54,20 +54,20 @@ module "docdb" {
 #  value = [for i,j in module.vpc : j.private_subnets["app"]["subnets"][*].id]
 #}
 module "rds" {
-  for_each          = var.rds
-  name              = each.key
-  source            = "./vendor/modules/rds"
-  subnets           = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
-  allocated_storage = each.value.allocated_storage
-  engine            = each.value.engine
-  engine_version    = each.value.engine_version
-  instance_class    = each.value.instance_class
+  for_each            = var.rds
+  name                = each.key
+  source              = "./vendor/modules/rds"
+  subnets             = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  allocated_storage   = each.value.allocated_storage
+  engine              = each.value.engine
+  engine_version      = each.value.engine_version
+  instance_class      = each.value.instance_class
   skip_final_snapshot = each.value.skip_final_snapshot
   env                 = var.env
   vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
   BASTION_NODE        = var.BASTION_NODE
   vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
-  nodes = each.value.nodes
+  nodes               = each.value.nodes
 }
 
 module "elasticache" {
@@ -83,28 +83,28 @@ module "elasticache" {
   #parameter_group_name = each.value.parameter_group_name
   engine_version  = each.value.engine_version
   #port                 = each.value.port
-  vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
-  vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
+  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
+  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
 }
 
 module "rabbitmq" {
-  source        = "./vendor/modules/rabbitmq"
-  for_each      = var.rabbitmq
-  env           = var.env
-  subnets       = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
-  name          = each.key
-  instance_type = each.value.instance_type
+  source          = "./vendor/modules/rabbitmq"
+  for_each        = var.rabbitmq
+  env             = var.env
+  subnets         = flatten([for i, j in module.vpc : j.private_subnets["database"]["subnets"][*].id])
+  name            = each.key
+  instance_type   = each.value.instance_type
   private_zone_id = var.private_zone_id
-  BASTION_NODE        = var.BASTION_NODE
-  vpc_id              = element([for i, j in module.vpc : j.vpc_id], 0)
-  vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
+  BASTION_NODE    = var.BASTION_NODE
+  vpc_id          = element([for i, j in module.vpc : j.vpc_id], 0)
+  vpc_cidr        = element([for i, j in module.vpc : j.vpc_cidr], 0)
 }
 
 module "app" {
-  depends_on           = [module.vpc, module.rabbitmq, module.elasticache, module.docdb, module.alb, module.rds]
-  source  = "./vendor/modules/app-setup"
-  env     = var.env
-  subnets = each.key == "frontend" ? flatten([
+  depends_on = [module.vpc, module.rabbitmq, module.elasticache, module.docdb, module.alb, module.rds]
+  source     = "./vendor/modules/app-setup"
+  env        = var.env
+  subnets    = each.key == "frontend" ? flatten([
     for i, j in module.vpc :j.private_subnets["frontend"]["subnets"][*].id
   ]) : flatten([for i, j in module.vpc : j.private_subnets["app"]["subnets"][*].id])
   instance_type       = each.value.instance_type
@@ -121,9 +121,9 @@ module "app" {
   vpc_cidr            = element([for i, j in module.vpc : j.vpc_cidr], 0)
   alb                 = module.alb
   private_zone_id     = var.private_zone_id
-  public_zone_id     = var.public_zone_id
-  public_dns_name = try(each.value.public_dns_name,null)
-  ACM_ARN =  var.ACM_ARN
+  public_zone_id      = var.public_zone_id
+  public_dns_name     = try(each.value.public_dns_name, null)
+  ACM_ARN             = var.ACM_ARN
 }
 
 
