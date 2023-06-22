@@ -68,9 +68,9 @@ management_vpc = {
 
 docdb = {
   db1 = {
-    engine = "docdb"
-    skip_final_snapshot  = true
-    nodes = {
+    engine              = "docdb"
+    skip_final_snapshot = true
+    nodes               = {
       one = {
         instance_class = "db.t3.medium"
       }
@@ -80,12 +80,12 @@ docdb = {
 
 rds = {
   db1 = {
-    allocated_storage    = 10
-    engine               = "aurora-mysql"
-    engine_version       = "5.7.mysql_aurora.2.11.2"
-    instance_class       = "db.t3.micro"
-    skip_final_snapshot  = true
-    nodes = {
+    allocated_storage   = 10
+    engine              = "aurora-mysql"
+    engine_version      = "5.7.mysql_aurora.2.11.2"
+    instance_class      = "db.t3.micro"
+    skip_final_snapshot = true
+    nodes               = {
       one = {
         instance_class = "db.t3.small"
       }
@@ -105,76 +105,76 @@ elasticache = {
   }
 }
 
-rabbitmq ={
-  mq1 ={
-    instance_type ="t3.micro"
+rabbitmq = {
+  mq1 = {
+    instance_type = "t3.micro"
   }
 }
 
 apps = {
-  cart ={
-    instance_type = "t3.micro"
-    max_size           = 1
-    min_size           = 1
-    app_port_no        = 8080
-    lb_listner_priority = 100
-    type = "backend"
+  frontend = {
+    instance_type       = "t3.micro"
+    max_size            = 1
+    min_size            = 1
+    app_port_no         = 80
+    type                = "frontend"
+    lb_listner_priority = 0
+    public_dns_name     = "dev"
   }
-  catalogue ={
-    instance_type = "t3.micro"
-    max_size           = 1
-    min_size           = 1
-    app_port_no        = 8080
+  cart = {
+    instance_type       = "t3.micro"
+    max_size            = 1
+    min_size            = 1
+    app_port_no         = 8080
+    lb_listner_priority = 100
+    type                = "backend"
+  }
+  catalogue = {
+    instance_type       = "t3.micro"
+    max_size            = 1
+    min_size            = 1
+    app_port_no         = 8080
     lb_listner_priority = 101
-    type = "backend"
+    type                = "backend"
   }
-  user ={
-    instance_type = "t3.micro"
-    max_size           = 1
-    min_size           = 1
-    app_port_no        = 8080
+  user = {
+    instance_type       = "t3.micro"
+    max_size            = 1
+    min_size            = 1
+    app_port_no         = 8080
     lb_listner_priority = 102
-    type = "backend"
+    type                = "backend"
   }
-  shipping ={
-    instance_type = "t3.micro"
-    max_size           = 1
-    min_size           = 1
-    app_port_no        = 8080
+  shipping = {
+    instance_type       = "t3.micro"
+    max_size            = 1
+    min_size            = 1
+    app_port_no         = 8080
     lb_listner_priority = 103
-    type = "backend"
+    type                = "backend"
   }
-  payment ={
-    instance_type = "t3.micro"
-    max_size           = 1
-    min_size           = 1
-    app_port_no        = 8080
+  payment = {
+    instance_type       = "t3.micro"
+    max_size            = 1
+    min_size            = 1
+    app_port_no         = 8080
     lb_listner_priority = 104
-    type = "backend"
-  }
-  frontend ={
-    instance_type = "t3.micro"
-    max_size           = 1
-    min_size           = 1
-    app_port_no        = 80
-    type = "frontend"
-    lb_listner_priority = 100
-    public_dns_name = "dev"
+    type                = "backend"
   }
 
 
 }
 
-BASTION_NODE = "172.31.5.124/32"
+BASTION_NODE    = "172.31.5.124/32"
 private_zone_id = "Z01312793IKNYB43EUNLS"
 public_zone_id  = "Z04300462Z71PUFOI9IY1"
 PROMETHEUS_NODE = "172.31.2.187/32"
 
-alb ={
+alb = {
   public = {
     internal = false
   }
-  private ={
+  private = {
     internal = true
   }
 }
