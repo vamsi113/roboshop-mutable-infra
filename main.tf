@@ -101,6 +101,7 @@ module "rabbitmq" {
 }
 
 module "app" {
+  depends_on           = [module.vpc, module.rabbitmq, module.elasticache, module.docdb, module.alb, module.rds]
   source  = "./vendor/modules/app-setup"
   env     = var.env
   subnets = each.key == "frontend" ? flatten([
