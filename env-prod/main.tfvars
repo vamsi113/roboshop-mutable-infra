@@ -146,7 +146,7 @@ apps = {
     type                = "backend"
   }
   shipping = {
-    instance_type       = "t3.micro"
+    instance_type       = "t3.medium"
     max_size            = 3
     min_size            = 2
     app_port_no         = 8080
