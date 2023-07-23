@@ -166,8 +166,8 @@ apps = {
 }
 
 BASTION_NODE    = "172.31.5.124/32"
-private_zone_id = "Z01312793IKNYB43EUNLS"
-public_zone_id  = "Z04300462Z71PUFOI9IY1"
+private_zone_id = "Z08699481VHN1W3OT4FY3"
+public_zone_id  = "Z09403917LM2YM5N8HPC"
 PROMETHEUS_NODE = "172.31.2.187/32"
 
 alb = {
