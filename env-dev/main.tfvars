@@ -62,7 +62,7 @@ vpc = {
 
 management_vpc = {
   vpc_id           = "vpc-0035013d8f7f13f35"
-  route_table      = "rtb-0f3763bf2c221c7b2"
+  route_table      = "	rtb-0f854481b639897d9"
   default_vpc_cidr = "172.31.0.0/16"
 }
 
@@ -167,8 +167,8 @@ apps = {
 
 BASTION_NODE    = "172.31.5.124/32"
 private_zone_id = "Z08699481VHN1W3OT4FY3"
-public_zone_id  = "Z09403917LM2YM5N8HPC"
-PROMETHEUS_NODE = "172.31.2.187/32"
+public_zone_id  = "Z008607032EXFLAVFBUCE"
+PROMETHEUS_NODE = "172.31.24.84/32"
 
 alb = {
   public = {
@@ -179,6 +179,6 @@ alb = {
   }
 }
 
-ACM_ARN = "arn:aws:acm:us-east-1:466469048414:certificate/67c36723-e196-4339-b47e-a1a049f84233"
+ACM_ARN = "arn:aws:acm:us-east-1:542712333710:certificate/d8e94121-7b28-42b7-873c-a7c071b1bd80"
 
 
