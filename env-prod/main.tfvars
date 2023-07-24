@@ -61,7 +61,7 @@ vpc = {
 }
 
 management_vpc = {
-  vpc_id           = "vpc-0035013d8f7f13f35"
+  vpc_id           = "vpc-035fa532ad2dcf0c8"
   route_table      = "	rtb-0f854481b639897d9"
   default_vpc_cidr = "172.31.0.0/16"
 }
