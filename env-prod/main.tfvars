@@ -69,6 +69,7 @@ management_vpc = {
 docdb = {
   db1 = {
     engine              = "docdb"
+    version             = "3.6.0"
     skip_final_snapshot = true
     nodes               = {
       one = {
